@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: "test"
+    volumes:
+      - ./sql_script_dev.sql:/docker-entrypoint-initdb.d/01-dbtest.sql
+      
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.126.0
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "55679:55679"
+
+volumes:
+  rabbitmq_data:
