@@ -14,7 +14,7 @@ var app: express.Application
 var db: DataSource
 
 beforeAll(async () => {
-    let application = await new AplicationManager().startTeste()
+    let application = await new AplicationManager().startTeste("test_idea")
     app = application.application
     db = application.db
 })
@@ -26,7 +26,7 @@ describe("Validating creation of ideas", () => {
 
     validateProtectedRoutes("post", "/api/ideas/v1/idea", () => app)
 
-    it("if invalid param is sent, 400 is returned", async () => {
+    it("if invalid param is sent, 422 is returned", async () => {
         const response = await request(app)
             .post("/api/ideas/v1/idea")
             .set("Cookie", [`authToken=Bearer ${generateAccessToken(123456)}`])

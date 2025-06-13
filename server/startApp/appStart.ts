@@ -24,8 +24,8 @@ export class AplicationManager {
     return this.app
   }
 
-  async startTeste () {
-    const db = await AppDataSource.setOptions({database: "test"}).initialize()
+  async startTeste (dbName: string) {
+    const db = await AppDataSource.setOptions({database: dbName}).initialize()
     this.setMiddleares()
     return {application: this.app, db: db}
   }

@@ -8,7 +8,7 @@ build/
 # public_test.key
 # private_test.key
 
-
+.vscode
 *.txt
 node_modules/
 dist/

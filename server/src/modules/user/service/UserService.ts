@@ -6,6 +6,7 @@ import { IUserRepository } from "../repository/IUserRepository"
 import { ErrorRegisterAlreadyRegistered } from "../../../error/ErrorRegisterAlreadyRegistered"
 import argon2 from "argon2";
 import { ErrorUnauthenticatedUser } from "../../../error/ErrorUnauthenticatedUser"
+import { ErrorAccessDenied } from "../../../error/ErrorAccessDenied"
 
 export class UserService implements IUserService{
     repository: IUserRepository
@@ -28,7 +29,7 @@ export class UserService implements IUserService{
 
     async generateToken(email: string, password: string): Promise<ResultsWrapper<string>> {
         const user = await this.repository.findUserByEmail(email)
-        if(user.isSucess) return ResultsWrapper.fail(new ErrorRegisterAlreadyRegistered(email, "user"))
+        if(!user.isSucess) return ResultsWrapper.fail(new ErrorUnauthenticatedUser("Invalid username or password"))
 
         const validPass = await argon2.verify(user.getValue().password, password)
         if (!validPass) return ResultsWrapper.fail(new ErrorUnauthenticatedUser("Invalid username or password"))

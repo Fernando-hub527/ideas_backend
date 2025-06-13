@@ -4,7 +4,7 @@ import { validateSchema } from "../../../utils/validator";
 export function validNewUser(user: unknown){
     const schema = Joi.object({
         name: Joi.string().max(100).min(5).required(),
-        email: Joi.string().max(150).min(5).required(),
+        email: Joi.string().email().max(150).min(5).required(),
         password: Joi.string().max(100).min(5).required()
     })
 
