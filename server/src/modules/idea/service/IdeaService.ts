@@ -42,7 +42,7 @@ export class IdeaService implements IIdeaService{
         const idea = await this.ideaRepository.findIdeaById(ideaId)
         if (!idea.isSucess) return ResultsWrapper.fail(idea.getError())
             
-        return this.ideaRepository.listComments(page, limitPerPage)
+        return this.ideaRepository.listComments(page, limitPerPage, ideaId)
     }
     updateIdeaDescription(ideaId: number, description: string): Promise<ResultsWrapper<boolean>> {
         return this.ideaRepository.updateIdeaDescription(ideaId, description)

@@ -27,7 +27,7 @@ export class UserService implements IUserService{
         return this.repository.createUser(name, email, passwordHash)
     }
 
-    async generateToken(email: string, password: string): Promise<ResultsWrapper<string>> {
+    async generateToken(email: string, password: string): Promise<ResultsWrapper<{token: string, user: UserDTO}>> {
         const user = await this.repository.findUserByEmail(email)
         if(!user.isSucess) return ResultsWrapper.fail(new ErrorUnauthenticatedUser("Invalid username or password"))
 
@@ -37,6 +37,6 @@ export class UserService implements IUserService{
         const token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + 604800, data: {userId: user.getValue().userId}
         }, process.env.JWT_SECRET!.toString())
-        return ResultsWrapper.ok(token)
+        return ResultsWrapper.ok({token: token, user: user.getValue()})
     }
 }

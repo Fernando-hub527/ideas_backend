@@ -106,7 +106,7 @@ export class IdeaRepository implements IIdeaRepository{
 
     async findIdeaById(ideaId: number): Promise<ResultsWrapper<IdeaDTO>> {
         try {
-            const ideaFound = await AppDataSource.getRepository(Idea)
+            const rawIdeas = await AppDataSource.getRepository(Idea)
                 .createQueryBuilder('idea')
                 .leftJoin('idea.votes', 'vote')
                 .leftJoinAndSelect('idea.author', 'author')
@@ -114,8 +114,10 @@ export class IdeaRepository implements IIdeaRepository{
                 .where('idea.id = :id', { id: ideaId })
                 .groupBy('idea.id')
                 .addGroupBy('author.id') 
-                .getOne();
+                .getRawAndEntities()
 
+            const ideaFound = rawIdeas.entities[0]
+            ideaFound.total_votes = rawIdeas.raw[0]["voteCount"]
             if(!ideaFound) return ResultsWrapper.fail<IdeaDTO>(new ErrorRegisterNotFound(ideaId.toString() ,"idea"))
              
             return ResultsWrapper.ok(IdeaDTO.makeWithModel(ideaFound));
@@ -124,10 +126,11 @@ export class IdeaRepository implements IIdeaRepository{
          }
     }
 
-    async listComments(page: number, limitPerPage: number): Promise<ResultsWrapper<PaginationDTO<CommentDTO>>> {
+    async listComments(page: number, limitPerPage: number, ideaId: number): Promise<ResultsWrapper<PaginationDTO<CommentDTO>>> {
         try {
             const skip = (page - 1) * limitPerPage
             const [comments, total] = await AppDataSource.getRepository(Comment).findAndCount({
+                where: {idea: {id: ideaId}},
                 skip: skip,
                 take: limitPerPage,
                 order: {createdAt: "DESC"}

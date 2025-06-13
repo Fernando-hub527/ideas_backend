@@ -20,7 +20,7 @@ export interface IIdeaRepository{
     // Method responsible for searching for an idea by id
     findIdeaById(ideaId: number): Promise<ResultsWrapper<IdeaDTO>>
     // Method responsible for listing the comments of an idea and returning the paginated data
-    listComments(page: number, limitPerPage: number): Promise<ResultsWrapper<PaginationDTO<CommentDTO>>>
+    listComments(page: number, limitPerPage: number, ideaId: number): Promise<ResultsWrapper<PaginationDTO<CommentDTO>>>
     // Method responsible for updating the description of an idea
     updateIdeaDescription(ideaId: number, description: string): Promise<ResultsWrapper<boolean>>
     // Method responsible for updating the idea title

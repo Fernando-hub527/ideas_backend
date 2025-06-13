@@ -5,7 +5,7 @@ export function validNewIdea(idea: unknown){
     const schema = Joi.object({
         title: Joi.string().max(150).min(10).required(),
         description: Joi.string().max(500).min(10).required(),
-        category: Joi.string().max(100).min(10).required(),
+        category: Joi.string().max(100).min(3).required(),
         userId: Joi.number().required()
     })
     return validateSchema<{title: string, description: string, category: string, userId: number}>(schema, idea)

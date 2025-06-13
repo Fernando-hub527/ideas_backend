@@ -6,6 +6,8 @@ import { setIdeasRouts } from '../src/modules/idea/interface'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import { AppDataSource } from '../infra/database/data-source'
+import cors from "cors"
+
 if (process.env.NODE_ENV === 'development') dotenv.config({ path: './server/env/dev/.env' })
 else if (process.env.NODE_ENV === 'test') dotenv.config({ path: './server/env/test/.env' })
 
@@ -32,7 +34,7 @@ export class AplicationManager {
 
   private setMiddleares() {
     this.app.use((req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*')
+      res.header('Access-Control-Allow-Origin', process.env.CLIENT_HOST)
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
       next()
     })
@@ -43,6 +45,7 @@ export class AplicationManager {
       if (req.body === undefined) req.body = {}
       next()
     })
+    this.app.use(cors({credentials: true, origin: process.env.CLIENT_HOST}))
     this.app.use("/api/ideas/v1", this.getRoutes())
   }
 
@@ -54,7 +57,7 @@ export class AplicationManager {
   }
   
   private validEnviroment(){
-    const environmentVariables = ["JWT_SECRET", "PASSWORD", "DATABASE", "HOST_DATABASE", "DATABASE_PORT", "OTEL_COLLECTOR"]
+    const environmentVariables = ["JWT_SECRET", "PASSWORD", "DATABASE", "HOST_DATABASE", "DATABASE_PORT", "OTEL_COLLECTOR", "CLIENT_HOST"]
     environmentVariables.forEach((env) => {
       if (!process.env[env]) throw new Error(`Unable to start application, ${env} not found`)
     })

@@ -20,13 +20,10 @@ describe("validating user creation", () => {
     beforeEach(async () => {
         await clearDatabase(db)
     })
-    
-    validateProtectedRoutes("post", "/api/ideas/v1/user", () => app)
-  
+      
     it("if invalid user is sent, it should return 422", async () => {
         const response = await request(app)
             .post("/api/ideas/v1/user")
-            .set("Cookie", [`authToken=Bearer ${generateAccessToken(123456)}`])
             .send({email: "invalidemail", name: "Fernando COelho Saraiva", password: "senha123test123"})
 
         expect(response.statusCode).toEqual(422);
@@ -37,7 +34,6 @@ describe("validating user creation", () => {
 
         const response = await request(app)
             .post("/api/ideas/v1/user")
-            .set("Cookie", [`authToken=Bearer ${generateAccessToken(123456)}`])
             .send({email: user.email, name: "Fernando COelho Saraiva", password: "senha123test123"})
 
         expect(response.statusCode).toEqual(409);
@@ -46,7 +42,6 @@ describe("validating user creation", () => {
     it("if user is created, password is encrypted", async () => {
         const response = await request(app)
             .post("/api/ideas/v1/user")
-            .set("Cookie", [`authToken=Bearer ${generateAccessToken(123456)}`])
             .send({email: "ferandnpo@gmail.com", name: "Fernando COelho Saraiva", password: "senha senha senha"})
 
         expect(response.statusCode).toEqual(201);
@@ -85,14 +80,14 @@ describe("validating login", () => {
         expect(response.statusCode).toEqual(401);
     })
 
-    it("if valid password is sent, it should return 204 with cookie", async () => {
+    it("if valid password is sent, it should return 201 with cookie", async () => {
         const user = await db.getRepository(User).save(new User("test@gmail.com", "nome de teste 123 test", await generatePassword("passeord123")))
 
         const response = await request(app)
             .post("/api/ideas/v1/user/login")
             .send({email: user.email, password: "passeord123"})
 
-        expect(response.statusCode).toEqual(204);
+        expect(response.statusCode).toEqual(201);
         expect(response.headers['set-cookie']).toBeDefined();
         expect(response.headers['set-cookie'][0]).toMatch(/authToken=.*HttpOnly/);
     })

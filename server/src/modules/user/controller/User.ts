@@ -24,16 +24,16 @@ export class UserController{
         if (!validation.isSucess) {res.status(validation.getError().getStatus()).send(validation.getError()); return}
 
         const data = validation.getValue()
-        const token = await this.userService.generateToken(data.email, data.password)
-        if (!token.isSucess) {res.status(token.getError().getStatus()).send(token.getError()); return}
+        const userValidation = await this.userService.generateToken(data.email, data.password)
+        if (!userValidation.isSucess) {res.status(userValidation.getError().getStatus()).send(userValidation.getError()); return}
 
 
-        res.cookie('authToken', token.getValue(), {
+        res.cookie('authToken', `Bearer ${userValidation.getValue().token}`, {
             httpOnly: true,
             secure: false, // devido a não estar usando https
-            sameSite: 'strict',
+            // sameSite: 'lax', 
             maxAge: 3600000,
         });
-        res.status(204).send()
+        res.status(201).send(userValidation.getValue().user.toResponse())
     }
 }
