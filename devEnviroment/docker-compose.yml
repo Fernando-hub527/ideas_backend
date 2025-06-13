@@ -20,6 +20,3 @@ services:
       - "4317:4317"
       - "4318:4318"
       - "55679:55679"
-
-volumes:
-  rabbitmq_data:

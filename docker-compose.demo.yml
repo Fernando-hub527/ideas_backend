@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: demo
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql_script_dev.sql:/docker-entrypoint-initdb.d/01-dbtest.sql
+    networks:
+      - idea-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.126.0
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./demo/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"   
+      - "4318:4318"  
+      - "55679:55679"
+    networks:
+      - idea-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: idea-app
+    environment:
+      USERNAME_DATABASE: demo
+      PASSWORD: demo
+      DATABASE: demo
+      HOST_DATABASE: postgres
+      DATABASE_PORT: 5432
+      JWT_SECRET: KJDFFFD97777777777437AWFGGGGGGGGGWruifgwETRRRRRRRRRRRRRBF2RN143irhAGFUFWEfFWF87w98f4c6356c4df79876df87a625
+      OTEL_COLLECTOR: http://otel-collector:4318
+    depends_on:
+      - postgres
+      - otel-collector
+    ports:
+      - "3034:3034"  # Ajuste conforme sua aplicação
+    networks:
+      - idea-network
+    entrypoint: ["npm", "start"]
+
+volumes:
+  pgdata:
+
+networks:
+  idea-network:
+    driver: bridge
