@@ -45,7 +45,7 @@ export async function voteOnIdea(ideaId: number, notificationSuccess: typeNotifi
 
 export async function loadIdeas(error: typeNotification, page: number, params: IdeaListingParam): Promise<Pagination<Idea> | null>{
     try {
-        let url = `${apiConfig}/idea?orderBy=${params.orderBy}&page=${page}&limit=50`
+        let url = `${apiConfig}/idea?orderBy=${params.orderBy}&page=${page}&limit=10`
         if(params.titleSearch) url = url.concat(`&title=${params.titleSearch}`)
         const ideas = await axios.get<Pagination<Idea>>(url, {withCredentials: true});
         return ideas.data;

@@ -12,6 +12,7 @@ services:
       POSTGRES_DB: demo
     volumes:
       - ./demo/sql_script_dev.sql:/docker-entrypoint-initdb.d/01-dbtest.sql
+      - ./demo/01-sequences.sql:/docker-entrypoint-initdb.d/01-sequences.sql
     networks:
       - idea-network
 

@@ -41,8 +41,8 @@ export function CardIdea(props: {idea: Idea, setLoading: (loading: boolean) => v
         >
         <VStack align="start" spacing={6} width={"100%"}>
             <Badge colorScheme="blue">{props.idea.category}</Badge>
-            <Heading size="md" noOfLines={2}> {props.idea.title}</Heading>
-            <Text fontSize="sm" color="gray.500">{props.idea.description}</Text>
+            <Heading size="md" noOfLines={1}> {props.idea.title}</Heading>
+            <Text fontSize="sm" noOfLines={2} color="gray.500">{props.idea.description}</Text>
 
             <Box display="flex" gap={2} pt={2}>
             <Button onClick={registerVote} isDisabled = {props.idea.liked} _focus={{outline: "none" }} colorScheme="blue" size="sm"> Curtir </Button>
