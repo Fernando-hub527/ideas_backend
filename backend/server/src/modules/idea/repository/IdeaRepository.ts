@@ -116,9 +116,9 @@ export class IdeaRepository implements IIdeaRepository{
                 .addGroupBy('author.id') 
                 .getRawAndEntities()
 
+            if(rawIdeas.entities.length == 0) return ResultsWrapper.fail<IdeaDTO>(new ErrorRegisterNotFound(ideaId.toString() ,"idea"))
             const ideaFound = rawIdeas.entities[0]
             ideaFound.total_votes = rawIdeas.raw[0]["voteCount"]
-            if(!ideaFound) return ResultsWrapper.fail<IdeaDTO>(new ErrorRegisterNotFound(ideaId.toString() ,"idea"))
              
             return ResultsWrapper.ok(IdeaDTO.makeWithModel(ideaFound));
          } catch (error) {

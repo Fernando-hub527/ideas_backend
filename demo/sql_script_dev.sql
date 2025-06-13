@@ -1,0 +1,379 @@
+-- -- Tabela: public."user"
+-- CREATE TABLE IF NOT EXISTS public."user" (
+--     id       INTEGER PRIMARY KEY DEFAULT SERIAL,
+--     email    VARCHAR NOT NULL UNIQUE,
+--     name     VARCHAR NOT NULL,
+--     password VARCHAR NOT NULL
+-- );
+
+-- ALTER TABLE public."user" OWNER TO demo;
+
+-- -- Tabela: public.idea (depende de "user")
+-- CREATE TABLE IF NOT EXISTS public.idea (
+--     id          INTEGER PRIMARY KEY DEFAULT SERIAL,
+--     title       VARCHAR NOT NULL,
+--     description VARCHAR NOT NULL,
+--     "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+--     category    VARCHAR NOT NULL,
+--     "authorId"  INTEGER,
+--     CONSTRAINT fk_idea_author FOREIGN KEY ("authorId")
+--         REFERENCES public."user"(id)
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION
+-- );
+
+-- ALTER TABLE public.idea OWNER TO demo;
+
+-- -- Tabela: public.comment (depende de "idea" e "user")
+-- CREATE TABLE IF NOT EXISTS public.comment (
+--     id          INTEGER PRIMARY KEY DEFAULT SERIAL,
+--     comment     VARCHAR NOT NULL,
+--     "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+--     "ideaId"    INTEGER,
+--     "userId"    INTEGER,
+--     CONSTRAINT fk_comment_idea FOREIGN KEY ("ideaId")
+--         REFERENCES public.idea(id)
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION,
+--     CONSTRAINT fk_comment_user FOREIGN KEY ("userId")
+--         REFERENCES public."user"(id)
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION
+-- );
+
+-- ALTER TABLE public.comment OWNER TO demo;
+
+-- -- Tabela: public.votes (depende de "idea" e "user")
+-- CREATE TABLE IF NOT EXISTS public.votes (
+--     id          INTEGER PRIMARY KEY DEFAULT SERIAL,
+--     liked       BOOLEAN NOT NULL,
+--     created_at  TIMESTAMP NOT NULL DEFAULT now(),
+--     "ideaId"    INTEGER,
+--     "userId"    INTEGER,
+--     CONSTRAINT fk_votes_idea FOREIGN KEY ("ideaId")
+--         REFERENCES public.idea(id)
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION,
+--     CONSTRAINT fk_votes_user FOREIGN KEY ("userId")
+--         REFERENCES public."user"(id)
+--         ON UPDATE NO ACTION
+--         ON DELETE NO ACTION
+-- );
+
+-- ALTER TABLE public.votes OWNER TO demo;
+
+
+-- INSERT INTO "user" (id, email, name, password) VALUES (1, 'user1@example.com', 'Norma Fisher', 'tn8Em4__*%zP');
+-- INSERT INTO "user" (id, email, name, password) VALUES (2, 'user2@example.com', 'Benjamin Jefferson', '^BZ3SKQ%t7Rd');
+-- INSERT INTO "user" (id, email, name, password) VALUES (3, 'user3@example.com', 'Sean Sanchez MD', '5xlShBPv@3eS');
+-- INSERT INTO "user" (id, email, name, password) VALUES (4, 'user4@example.com', 'Kyle Cruz', '21XaN&fq)o3J');
+-- INSERT INTO "user" (id, email, name, password) VALUES (5, 'user5@example.com', 'Kelly Young', '89Z$sEC(VC2N');
+-- INSERT INTO "user" (id, email, name, password) VALUES (6, 'user6@example.com', 'Christopher Simmons', '!1mZvW^)1e(&');
+-- INSERT INTO "user" (id, email, name, password) VALUES (7, 'user7@example.com', 'Cathy Martinez', 'SXn^0VKaMWd$');
+-- INSERT INTO "user" (id, email, name, password) VALUES (8, 'user8@example.com', 'Tamara Jackson', 'k++R3Yb!cs_t');
+-- INSERT INTO "user" (id, email, name, password) VALUES (9, 'user9@example.com', 'Michael Ellis', '@5iNXbVspbXh');
+-- INSERT INTO "user" (id, email, name, password) VALUES (10, 'user10@example.com', 'George Allen', 'MUIHdIbw_7+R');
+-- INSERT INTO "user" (id, email, name, password) VALUES (11, 'user11@example.com', 'Kathleen Collins', 'Izxyn)@w*0Zh');
+-- INSERT INTO "user" (id, email, name, password) VALUES (12, 'user12@example.com', 'Lee Gonzalez', '%p4WfLkp)QaD');
+-- INSERT INTO "user" (id, email, name, password) VALUES (13, 'user13@example.com', 'Kristin Potts', 'W)ZLKX1F9w80');
+-- INSERT INTO "user" (id, email, name, password) VALUES (14, 'user14@example.com', 'Derrick Hernandez', 'z4(gvLpm)nA(');
+-- INSERT INTO "user" (id, email, name, password) VALUES (15, 'user15@example.com', 'Michael Simmons', 'suYFXZ%v%5!H');
+-- INSERT INTO "user" (id, email, name, password) VALUES (16, 'user16@example.com', 'Claudia Miller', '0y4Sp#Qh2$6Z');
+-- INSERT INTO "user" (id, email, name, password) VALUES (17, 'user17@example.com', 'James Payne', '#IcTOpBOOb21');
+-- INSERT INTO "user" (id, email, name, password) VALUES (18, 'user18@example.com', 'Stephanie Meyers', 'W+!9eElit%8A');
+-- INSERT INTO "user" (id, email, name, password) VALUES (19, 'user19@example.com', 'Jacob Reyes', '(kQB^Js9s8xo');
+-- INSERT INTO "user" (id, email, name, password) VALUES (20, 'user20@example.com', 'April White', '(p9AIlIk)9n%');
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (1, 'Three own bank recognize special good along.', 'Learn big sing after our car. Black near get himself simply make. Particular level place full.', '2025-01-05 20:23:11', 'Finance', 14);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (2, 'Fast support when hold family second whatever work.', 'Team yet although hot he couple ground. Away and various main too war project occur.', '2025-01-23 15:31:56', 'Tech', 9);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (3, 'Behavior standard thousand single recognize.', 'Figure box international not type very indeed. Indeed choose west social. Rather air try while reveal bad.', '2024-12-26 08:45:16', 'Environment', 16);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (4, 'Grow ahead girl act.', 'Audience throw debate daughter purpose voice. Security fall ready usually.', '2025-01-26 22:12:58', 'Finance', 10);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (5, 'Cost both general where.', 'Whom gun list. Fast there network force or.', '2024-12-28 09:35:34', 'Finance', 12);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (6, 'Mouth film heavy chair.', 'Firm drug senior fact information. Technology over hour.', '2025-04-28 01:20:33', 'Environment', 7);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (7, 'Car federal indicate unit.', 'Fear great easy plan PM more. Impact individual rock fly daughter fall. Before control board born painting child reflect. Control instead company where future model.', '2025-02-19 17:07:40', 'Environment', 5);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (8, 'Place beat sense far store last left.', 'Boy without feeling participant interest. Begin marriage which myself if place again.', '2025-02-03 03:39:07', 'Education', 5);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (9, 'A huge three.', 'Bill education exist sense training other. Audience energy move. Morning eat turn clear.', '2025-03-03 06:14:43', 'Tech', 20);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (10, 'Executive care mission decision black.', 'Scientist tough everything kind nothing case. Recent high opportunity cause. Government line indeed live reason.', '2025-02-12 12:06:08', 'Education', 18);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (11, 'Present art feel seat appear perform agent.', 'Thousand act money at term rather. According American per yourself their record. Cell of course its respond.', '2025-02-25 07:10:18', 'Environment', 5);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (12, 'Former possible reach challenge.', 'Firm decade cost glass work interview man. Somebody keep daughter report town.', '2024-12-19 04:05:17', 'Education', 4);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (13, 'Plan that hair sea quality.', 'Father beautiful than seem sign third in approach. Program possible natural same issue lawyer effort.', '2025-03-15 01:41:48', 'Tech', 11);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (14, 'Front amount apply glass face.', 'As into develop part.', '2025-03-31 00:23:06', 'Finance', 18);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (15, 'Law fund bill third some.', 'Lay foot agreement and hard decide modern. Study economy rock feeling might. Effort gas Republican and various authority.', '2025-03-12 05:05:23', 'Tech', 12);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (16, 'Right answer speak without leave brother bank.', 'Increase try key baby. Next though house where economic detail.', '2025-05-24 21:49:06', 'Finance', 11);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (17, 'Various floor itself news experience.', 'Represent since method left plant. Discussion budget situation between run. Design they young according movement.', '2025-03-05 20:52:35', 'Environment', 7);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (18, 'Business population brother.', 'Director respond national example science top. Million push do pick. Old case administration measure happen.', '2025-04-14 23:27:01', 'Environment', 16);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (19, 'Speech theory choice.', 'Yard career deal trip market should wide. Run staff service government opportunity.', '2025-04-13 20:17:54', 'Finance', 17);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (20, 'Too blue street money grow lay actually.', 'Present produce manager well lose finish summer. Case I course first factor.', '2024-12-24 04:47:44', 'Education', 2);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (21, 'Although risk which gas kid.', 'General class admit of around. Character against physical agency and difficult president at.', '2024-12-24 19:49:39', 'Environment', 1);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (22, 'Will institution throughout describe itself group.', 'Road size impact act through move. Service north but west commercial may perform.', '2025-04-20 06:01:47', 'Tech', 13);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (23, 'Style record bag down stock computer watch.', 'Collection bad until our per leader change. Always future scene heavy personal threat many group.', '2025-04-22 03:05:24', 'Tech', 20);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (24, 'Leader medical class send.', 'Sound war address morning explain. With significant now energy rather lay return. Get anything event yet effect quite.', '2025-04-28 03:51:25', 'Finance', 11);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (25, 'Yet seven several might history.', 'Break word source wall drug. Race government trouble tonight former section across.', '2025-05-20 05:30:17', 'Health', 11);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (26, 'North weight guy.', 'Follow situation over would a. Notice kind game act. Travel professional production election partner audience very. Wear community college probably church.', '2025-01-03 01:52:58', 'Tech', 7);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (27, 'Place myself his itself find add sing.', 'Mrs never wrong couple site. Suddenly seek choice produce.', '2025-06-10 01:45:51', 'Environment', 8);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (28, 'His less already treatment PM sometimes set.', 'More walk quite piece physical market.', '2025-05-03 15:19:34', 'Health', 5);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (29, 'Number drug continue serve information.', 'Door research tell time special beyond could. Type up play wait education think. Particular before air action economy several.', '2025-02-25 18:47:55', 'Environment', 15);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (30, 'Simple personal home they although let.', 'North everything state huge. Career bank ten guess attorney response provide. Amount up suddenly war fire town worker.', '2025-05-10 04:54:08', 'Tech', 3);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (31, 'Image central challenge term memory.', 'Throughout treat relate respond. Role mind statement.', '2025-04-25 22:10:03', 'Education', 17);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (32, 'Hold conference son spend ball company enter son.', 'Site military lead travel series. Need although one political almost serious stand. Cover social particularly speech.', '2025-03-24 02:54:59', 'Finance', 4);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (33, 'Remember tree care sign.', 'Bar military able simple billion parent now. Street mention would technology budget first.', '2024-12-17 02:54:14', 'Education', 18);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (34, 'Safe affect though cover.', 'Recognize someone treatment over. Group strong back approach. Page per eight finally support law.', '2025-01-16 18:57:41', 'Education', 4);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (35, 'Law enough we.', 'Benefit ago again identify real to. Lead network the many ball appear.', '2025-05-29 02:42:54', 'Environment', 11);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (36, 'So teach energy possible believe step.', 'Western likely almost training personal expert. A front war. Civil single city quite.', '2025-06-01 08:56:56', 'Environment', 7);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (37, 'Foreign agency when personal huge difficult player forget.', 'Difficult there leg theory case north. Class on reach.', '2025-05-01 05:17:41', 'Environment', 18);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (38, 'Yourself affect station member.', 'Since born particularly.', '2025-05-12 20:15:14', 'Environment', 10);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (39, 'Purpose here ago job.', 'Two hair describe hundred candidate. Probably whom it job likely different house. However ok structure your those head against.', '2025-04-10 11:16:46', 'Finance', 3);
+-- INSERT INTO idea (id, title, description, "createdAt", category, "authorId") VALUES (40, 'Theory everybody particularly test hospital personal move.', 'Require agree inside thank.', '2025-02-27 01:00:44', 'Environment', 13);
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (1, 21, 'Under require page claim future in opportunity you exist me value generation pick.', 19, '2025-05-10 11:25:38');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (2, 16, 'Picture send cultural whatever computer on fast play fact issue radio especially road get.', 10, '2025-01-07 08:53:15');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (3, 12, 'Party close issue huge away represent race sing.', 7, '2025-03-28 12:28:29');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (4, 12, 'Catch check clearly ahead career manage tonight perhaps explain soldier range sort trial study significant.', 2, '2025-02-01 12:55:30');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (5, 40, 'Garden maybe forward reason treatment worker season figure they.', 9, '2025-02-24 05:14:37');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (6, 31, 'Hope likely fill improve image best win challenge on plant wonder thing.', 3, '2025-01-02 10:47:04');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (7, 6, 'Other owner message entire rule collection be along break gun.', 5, '2025-05-01 23:55:08');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (8, 10, 'Five put hard recent project speech director city necessary thus sister meet though ago.', 2, '2025-04-16 14:34:42');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (9, 6, 'These military part decade remain if again care hold.', 18, '2025-06-02 14:13:56');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (10, 26, 'North trouble upon beautiful open free medical lay lose big strategy make population.', 17, '2025-03-14 11:50:17');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (11, 18, 'Congress must city system story century attention attention hotel well news.', 17, '2025-02-02 06:26:20');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (12, 16, 'Director book cell speech catch ten statement carry next according television next sense make.', 7, '2025-04-25 18:35:43');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (13, 38, 'Use nice themselves gas best above dinner stuff.', 14, '2025-02-11 04:40:10');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (14, 38, 'Different many water meeting future back off difficult happen high serve.', 9, '2025-01-26 16:27:51');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (15, 29, 'Very score loss they grow his can sing husband matter likely.', 16, '2025-04-19 03:01:28');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (16, 23, 'Place grow everyone win should research executive black tough building child usually.', 3, '2025-05-06 01:07:34');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (17, 21, 'Upon full director race wish let left very your.', 20, '2025-05-22 14:04:54');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (18, 8, 'Determine human find discussion military ability line hour wear star issue any side image enjoy rise.', 16, '2025-01-16 09:11:58');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (19, 38, 'Congress recognize agreement well account movement can start.', 11, '2025-04-09 08:35:44');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (20, 13, 'Bank letter summer minute perform indeed Mr unit dinner indeed.', 8, '2025-03-14 21:11:15');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (21, 2, 'Job high she past especially old region.', 9, '2025-05-22 07:27:31');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (22, 8, 'Quality political other begin war resource evening realize per probably her of.', 8, '2025-04-19 20:56:43');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (23, 24, 'Cut meet build black treat buy throw like lawyer fund indicate help.', 6, '2025-04-01 10:00:24');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (24, 22, 'Friend state do eat lose various agency rich accept if share land involve education.', 14, '2025-03-14 23:06:06');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (25, 4, 'Direction exist president outside upon why mission because feel.', 4, '2025-03-23 06:08:28');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (26, 10, 'Pull watch choice already thank source she light question in court hospital skin soon which thought.', 8, '2025-04-24 03:44:23');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (27, 3, 'Could foreign mind myself surface old charge read management production up our allow maintain page.', 19, '2025-02-12 09:31:35');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (28, 35, 'Room a artist drug them particular produce board whole middle under plant expert raise management.', 20, '2025-01-19 00:27:42');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (29, 5, 'Head successful response hospital wrong fish yeah attack detail.', 1, '2025-01-03 16:59:48');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (30, 8, 'West hour less music throughout region again debate take.', 7, '2025-04-05 09:30:04');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (31, 39, 'Them in decision above you carry poor majority herself Mr bad wide manage address information.', 19, '2025-05-08 17:48:43');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (32, 8, 'Fine seat should dream whose agreement tell mention check election order everything.', 13, '2025-05-24 12:19:15');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (33, 6, 'Him second until direction opportunity very analysis firm once machine.', 12, '2025-03-25 02:27:25');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (34, 8, 'Itself history the bring parent very card center all relationship easy picture enough break.', 2, '2025-02-07 08:05:16');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (35, 39, 'Pattern PM seat my arrive middle add traditional standard PM election case.', 1, '2024-12-31 23:52:22');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (36, 13, 'Night western serious edge bit avoid yourself campaign alone subject development best student describe concern professional.', 6, '2025-01-26 09:35:23');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (37, 8, 'Cut recognize keep citizen result thus wind natural customer letter finish campaign night.', 16, '2025-05-12 10:16:57');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (38, 14, 'Bar standard final relationship wear along particularly.', 2, '2025-02-07 11:41:59');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (39, 2, 'Coach every cut never ten become me story.', 18, '2025-01-05 12:51:25');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (40, 28, 'Order leg food fast pick purpose expert age.', 20, '2024-12-14 07:18:28');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (41, 7, 'Away wish finish within president explain situation eat thousand might employee.', 9, '2024-12-23 14:23:00');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (42, 5, 'Industry old effect fine speak majority large but hear minute discuss space himself.', 8, '2025-01-28 00:26:18');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (43, 5, 'Final station tough whether address senior moment buy.', 10, '2025-01-29 13:55:31');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (44, 23, 'Example identify likely view around remember take ground eat determine feeling certainly necessary economy.', 14, '2024-12-17 23:59:48');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (45, 12, 'Discussion star individual third want during nice thing ok.', 2, '2025-01-14 07:56:01');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (46, 33, 'Model similar sometimes talk remember again leave toward current include.', 15, '2025-02-24 16:39:35');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (47, 3, 'Hold his moment billion talk mouth tonight throw action section drug how purpose world.', 20, '2025-02-17 18:10:43');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (48, 7, 'Election baby seven only scientist teach seven approach speak really eat report to.', 13, '2025-04-20 03:49:24');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (49, 13, 'Outside they eye out goal group stop father politics.', 9, '2025-01-30 22:25:44');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (50, 23, 'Against southern very talk part fund feeling cause stand.', 16, '2025-06-12 18:21:18');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (51, 37, 'Give point herself official receive may push serious successful country describe method.', 6, '2025-03-21 16:10:09');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (52, 14, 'Space military tonight sing media step live game item.', 2, '2025-03-11 07:04:44');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (53, 11, 'Appear role why learn attention cut billion eight soldier ability them vote continue community whole.', 6, '2025-02-20 16:29:19');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (54, 22, 'Speech across yard admit parent up story financial state hotel matter guy great old site record.', 17, '2025-05-10 20:29:53');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (55, 17, 'Add mother good decade TV culture continue condition probably.', 4, '2025-04-10 11:54:36');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (56, 39, 'Measure only wait technology town approach today all positive us maybe information forward trouble unit people.', 15, '2025-04-30 10:28:33');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (57, 12, 'Fund catch without prevent ever with participant form.', 1, '2025-06-04 15:47:12');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (58, 31, 'Learn senior today mention next identify language provide.', 14, '2025-04-09 16:02:44');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (59, 37, 'Short rather spend similar both significant stuff section lot rather beyond share energy.', 17, '2025-05-14 03:56:59');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (60, 20, 'Play meeting movie avoid American address simply catch.', 12, '2025-01-05 13:35:42');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (61, 25, 'His within though finish star be hot often worry any include try agree.', 9, '2025-04-08 00:55:18');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (62, 10, 'Car room father identify within street national sea knowledge my night top popular.', 18, '2025-04-05 23:51:00');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (63, 1, 'Store office explain education idea across player appear similar.', 15, '2024-12-26 07:58:54');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (64, 6, 'Police choice cell seven care yet well.', 11, '2024-12-13 22:56:14');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (65, 3, 'Study form seem beat debate late radio like money ball keep since.', 18, '2025-03-27 23:52:23');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (66, 18, 'Necessary million trade century hundred themselves finish these century alone popular break attention environment.', 5, '2025-02-09 11:43:00');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (67, 16, 'Voice thank local option five prove performance mention discussion maybe rise sit.', 16, '2025-02-21 18:36:46');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (68, 23, 'Society according off little happy short during agency meet window now always.', 20, '2025-02-21 17:32:44');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (69, 19, 'Game magazine series think industry specific show pressure local.', 12, '2025-05-02 12:59:28');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (70, 38, 'Raise suggest six claim analysis school moment young close history explain these.', 20, '2025-03-16 15:10:52');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (71, 9, 'Trial religious your outside wish community kid official within nothing.', 10, '2025-05-29 17:25:21');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (72, 25, 'Century involve down herself drive effort drop onto until head lay out perhaps chair during such.', 14, '2025-01-31 13:18:28');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (73, 6, 'Common relate others throw land daughter consider group eat soon must toward family event dark.', 1, '2025-05-25 14:33:11');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (74, 39, 'Firm again court culture story suggest learn economy explain main sport summer sea.', 7, '2025-04-27 15:21:15');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (75, 22, 'Approach trip throughout free civil entire result just nature increase trouble heart watch.', 6, '2024-12-30 02:52:57');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (76, 16, 'Yet so before wrong take old former run.', 8, '2025-04-07 13:27:08');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (77, 29, 'Too dog among believe value fine staff that.', 13, '2025-04-29 12:49:44');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (78, 37, 'Sign office until particularly when thing everyone city contain.', 14, '2025-01-25 14:18:20');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (79, 3, 'Candidate direction many field same even bad together professional.', 13, '2025-01-17 01:09:48');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (80, 37, 'That admit Mrs look call spring establish together record system.', 14, '2025-05-29 23:05:22');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (81, 3, 'Social say about century debate officer about camera machine American five.', 6, '2025-01-24 10:12:55');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (82, 29, 'Lead professional kind wait PM every religious beyond majority.', 3, '2025-02-19 04:20:55');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (83, 17, 'Open executive experience hotel compare box operation prepare might catch that trip century energy safe.', 6, '2025-01-19 14:08:33');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (84, 29, 'School enter wind heavy anything strategy hope return near.', 17, '2025-05-11 15:50:11');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (85, 32, 'Notice prevent figure kitchen seven write decision data wrong best I medical level president allow.', 18, '2025-01-26 22:53:57');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (86, 39, 'Believe her attorney stock defense cup man course teacher message.', 1, '2025-04-08 22:52:56');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (87, 3, 'Nearly mind perform over ten tree pull likely piece small.', 16, '2025-02-18 19:48:19');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (88, 21, 'Woman small reduce alone culture democratic radio stay century law before everybody.', 10, '2025-04-17 17:21:09');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (89, 30, 'Hot scene view today father provide pass step have perform because.', 2, '2025-05-28 22:32:14');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (90, 27, 'Important they tax machine century suddenly have quality break.', 7, '2025-02-13 03:08:42');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (91, 36, 'Raise away tough subject customer far recently prepare scene house central baby.', 3, '2025-04-13 22:26:36');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (92, 9, 'Money store majority choice chance of enter deep walk.', 1, '2025-01-08 18:09:47');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (93, 26, 'Trouble movie view stuff federal like be happen unit big early amount team.', 14, '2025-04-24 10:44:40');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (94, 21, 'Beat start say either none heavy down business state way sister civil market value during difficult.', 1, '2025-04-28 23:42:43');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (95, 14, 'Push the ten will summer specific option concern black believe performance officer election information among avoid.', 1, '2025-05-22 09:27:21');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (96, 1, 'Around four PM hospital against fast drop simply or century their defense floor themselves.', 17, '2025-05-10 07:09:44');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (97, 40, 'Inside mind without represent resource pretty write under fear knowledge player.', 4, '2025-01-27 17:01:53');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (98, 13, 'Tough fill happy last hit poor appear since experience perform interest.', 4, '2025-04-10 09:48:33');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (99, 39, 'Season crime study environment style remain cup they enter identify participant environmental them really debate.', 7, '2025-02-01 12:40:16');
+-- INSERT INTO comment (id, "ideaId", comment, "userId", "createdAt") VALUES (100, 20, 'Price job follow result court improve use while.', 9, '2025-01-05 18:31:50');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (1, 12, true, 16, '2025-01-30 05:54:35');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (2, 26, true, 1, '2025-02-20 03:01:14');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (3, 18, false, 4, '2025-05-09 12:20:36');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (4, 17, true, 17, '2025-05-01 17:11:43');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (5, 23, true, 5, '2025-06-07 19:48:36');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (6, 18, true, 2, '2025-03-14 10:26:25');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (7, 3, true, 9, '2025-03-08 10:05:58');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (8, 36, false, 12, '2025-01-15 10:48:17');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (9, 37, true, 20, '2025-04-25 03:39:54');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (10, 32, false, 14, '2025-05-24 09:36:34');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (11, 24, true, 7, '2025-02-19 10:55:49');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (12, 25, false, 1, '2025-03-05 18:09:51');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (13, 9, true, 9, '2025-05-26 13:57:37');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (14, 22, false, 12, '2025-03-07 10:35:00');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (15, 6, false, 20, '2025-03-02 08:21:26');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (16, 3, true, 9, '2025-02-21 12:17:52');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (17, 11, true, 19, '2025-04-05 02:59:44');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (18, 19, false, 13, '2025-01-02 04:58:35');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (19, 36, true, 10, '2024-12-29 18:09:33');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (20, 8, false, 8, '2025-03-30 23:46:23');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (21, 4, false, 6, '2025-05-17 04:58:28');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (22, 34, true, 10, '2025-03-10 15:20:14');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (23, 26, false, 10, '2025-01-07 03:35:07');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (24, 27, true, 4, '2024-12-31 08:40:07');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (25, 36, false, 16, '2024-12-15 17:28:40');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (26, 22, false, 4, '2025-05-17 18:27:37');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (27, 31, true, 16, '2025-03-24 15:12:19');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (28, 28, true, 10, '2025-05-28 10:59:39');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (29, 22, true, 6, '2025-04-27 18:55:11');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (30, 37, false, 3, '2025-02-25 17:04:52');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (31, 5, true, 7, '2025-04-18 19:34:10');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (32, 15, true, 13, '2025-03-15 21:58:58');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (33, 1, true, 13, '2025-01-27 19:33:45');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (34, 36, false, 15, '2025-02-27 01:56:15');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (35, 32, true, 14, '2025-04-15 09:57:36');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (36, 6, false, 8, '2025-05-01 16:16:19');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (37, 17, true, 14, '2024-12-31 11:19:06');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (38, 13, false, 4, '2025-03-04 14:59:28');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (39, 5, true, 17, '2024-12-23 19:58:43');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (40, 29, true, 4, '2025-04-22 20:10:46');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (41, 32, false, 9, '2025-05-24 23:56:08');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (42, 14, true, 7, '2025-02-08 05:59:45');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (43, 40, true, 4, '2025-04-08 08:50:34');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (44, 13, false, 13, '2025-01-14 19:12:10');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (45, 24, true, 4, '2025-02-09 05:29:36');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (46, 39, false, 5, '2025-02-04 19:10:57');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (47, 37, false, 14, '2025-03-25 00:14:45');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (48, 34, false, 11, '2025-01-05 20:50:54');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (49, 32, false, 7, '2025-03-31 01:00:34');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (50, 35, true, 1, '2025-04-21 13:45:56');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (51, 22, false, 11, '2025-04-23 07:40:16');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (52, 3, true, 9, '2025-02-16 05:17:14');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (53, 39, true, 13, '2024-12-12 17:37:16');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (54, 38, false, 16, '2025-01-09 18:10:25');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (55, 5, true, 17, '2024-12-13 00:05:09');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (56, 3, true, 8, '2024-12-30 19:11:54');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (57, 9, true, 10, '2025-02-16 14:15:48');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (58, 1, false, 11, '2025-05-07 22:37:51');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (59, 11, true, 15, '2025-02-16 06:57:54');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (60, 24, false, 17, '2025-03-10 13:01:41');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (61, 33, true, 19, '2025-05-26 03:45:33');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (62, 6, true, 14, '2025-01-20 05:35:26');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (63, 14, false, 18, '2025-01-28 20:20:40');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (64, 39, false, 16, '2025-02-23 10:13:37');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (65, 25, true, 1, '2025-06-01 21:13:30');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (66, 1, true, 10, '2025-04-21 16:52:48');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (67, 33, false, 11, '2025-04-02 16:22:22');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (68, 5, false, 9, '2025-03-12 06:27:19');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (69, 20, false, 13, '2025-02-01 11:48:08');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (70, 25, true, 6, '2025-03-28 16:52:59');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (71, 9, true, 10, '2025-01-14 22:52:46');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (72, 22, true, 2, '2025-06-12 18:13:02');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (73, 31, false, 5, '2025-03-10 00:52:05');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (74, 32, true, 5, '2025-02-28 10:38:12');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (75, 23, false, 2, '2024-12-15 14:13:15');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (76, 40, false, 13, '2025-01-01 18:11:37');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (77, 30, true, 4, '2024-12-13 15:03:43');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (78, 31, true, 1, '2025-01-02 12:17:48');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (79, 3, true, 11, '2025-02-14 17:10:57');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (80, 7, false, 7, '2025-05-02 10:25:23');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (81, 25, false, 4, '2025-01-22 01:03:43');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (82, 4, false, 20, '2025-02-11 09:12:33');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (83, 22, true, 20, '2025-03-28 11:49:19');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (84, 19, true, 13, '2025-01-04 01:06:42');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (85, 19, true, 17, '2025-03-19 23:55:12');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (86, 13, true, 13, '2025-05-12 19:34:57');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (87, 29, false, 7, '2025-02-09 04:52:06');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (88, 30, false, 3, '2025-06-03 07:11:41');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (89, 3, true, 16, '2024-12-30 16:11:12');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (90, 17, true, 17, '2025-01-01 14:00:46');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (91, 37, true, 8, '2025-03-28 11:45:11');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (92, 6, false, 17, '2025-04-11 10:09:29');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (93, 20, true, 5, '2025-02-06 18:23:09');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (94, 28, false, 3, '2025-05-05 11:55:17');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (95, 7, false, 3, '2024-12-24 12:55:52');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (96, 7, false, 5, '2025-01-29 10:40:04');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (97, 2, false, 14, '2025-06-09 13:24:25');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (98, 27, true, 16, '2025-05-24 04:09:18');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (99, 21, false, 3, '2025-01-03 07:31:18');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (100, 23, true, 4, '2025-04-24 12:43:28');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (101, 23, true, 12, '2025-01-13 15:51:27');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (102, 23, true, 1, '2025-03-09 00:50:27');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (103, 15, false, 3, '2025-01-13 20:37:35');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (104, 39, true, 7, '2025-01-13 21:17:10');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (105, 1, true, 4, '2025-03-13 01:10:34');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (106, 1, false, 12, '2025-01-31 18:35:00');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (107, 2, true, 5, '2025-06-06 07:01:53');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (108, 12, false, 4, '2025-05-22 18:35:50');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (109, 31, false, 9, '2025-04-26 12:34:21');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (110, 9, true, 7, '2025-01-14 07:02:12');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (111, 24, false, 16, '2025-03-08 02:52:41');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (112, 19, false, 18, '2025-04-28 12:49:29');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (113, 21, true, 19, '2025-05-23 05:12:34');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (114, 6, true, 18, '2025-04-02 13:46:51');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (115, 38, false, 6, '2024-12-18 00:00:17');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (116, 25, true, 5, '2025-03-31 14:07:50');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (117, 15, false, 17, '2025-02-24 04:59:41');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (118, 16, true, 6, '2024-12-15 21:06:23');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (119, 19, false, 14, '2025-01-05 12:49:30');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (120, 3, true, 20, '2025-01-01 05:06:01');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (121, 2, false, 3, '2025-02-10 20:47:22');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (122, 5, true, 14, '2024-12-28 19:10:17');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (123, 20, false, 5, '2025-04-14 02:32:33');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (124, 38, false, 10, '2025-05-10 22:36:10');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (125, 23, true, 8, '2025-02-24 18:36:48');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (126, 29, false, 17, '2025-01-22 05:25:21');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (127, 4, false, 14, '2025-01-31 12:20:03');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (128, 1, false, 11, '2025-05-02 03:46:21');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (129, 29, true, 12, '2025-02-25 05:49:24');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (130, 19, false, 3, '2025-01-26 06:40:09');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (131, 12, true, 9, '2025-03-12 15:16:17');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (132, 8, true, 15, '2025-04-16 23:31:49');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (133, 26, true, 14, '2025-04-07 03:57:14');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (134, 28, true, 8, '2025-03-20 16:58:09');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (135, 30, false, 17, '2025-03-31 09:36:27');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (136, 10, false, 15, '2025-05-24 05:25:14');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (137, 6, false, 7, '2025-02-22 04:05:01');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (138, 19, true, 15, '2025-01-17 22:29:13');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (139, 40, false, 1, '2025-03-05 07:47:36');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (140, 14, false, 4, '2025-04-15 22:40:08');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (141, 20, true, 14, '2025-05-18 06:20:34');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (142, 31, true, 16, '2024-12-14 07:59:43');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (143, 15, false, 9, '2025-04-06 02:00:21');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (144, 2, true, 9, '2025-03-04 10:39:36');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (145, 3, true, 9, '2025-04-08 16:43:35');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (146, 26, false, 15, '2025-01-27 02:08:37');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (147, 7, false, 12, '2025-02-05 17:13:32');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (148, 19, true, 20, '2025-02-18 01:15:38');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (149, 6, true, 3, '2025-03-22 08:17:14');
+-- INSERT INTO votes (id, "ideaId", liked, "userId", created_at) VALUES (150, 17, false, 18, '2025-02-11 15:35:59');
+
+create DATABASE test_idea;
+create DATABASE test_user;
+

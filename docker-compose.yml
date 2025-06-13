@@ -11,8 +11,7 @@ services:
       POSTGRES_PASSWORD: demo
       POSTGRES_DB: demo
     volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./sql_script_dev.sql:/docker-entrypoint-initdb.d/01-dbtest.sql
+      - ./demo/sql_script_dev.sql:/docker-entrypoint-initdb.d/01-dbtest.sql
     networks:
       - idea-network
 
@@ -23,15 +22,15 @@ services:
     volumes:
       - ./demo/otel-collector-config.yaml:/etc/otel-collector-config.yaml
     ports:
-      - "4317:4317"   
-      - "4318:4318"  
+      - "4317:4317"
+      - "4318:4318"
       - "55679:55679"
     networks:
       - idea-network
 
   app:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     container_name: idea-app
     environment:
@@ -47,13 +46,22 @@ services:
       - postgres
       - otel-collector
     ports:
-      - "3034:3034"  # Ajuste conforme sua aplicação
+      - "3034:3034"
     networks:
       - idea-network
     entrypoint: ["npm", "start"]
 
-volumes:
-  pgdata:
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: idea-front
+    ports:
+      - "5173:80"
+    depends_on:
+      - app
+    networks:
+      - idea-network
 
 networks:
   idea-network:

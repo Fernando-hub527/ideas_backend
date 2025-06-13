@@ -20,6 +20,7 @@ const routes = createBrowserRouter([
       {path: routesConfig.ideas, Component: Idea}
     ]
   },
+  {path: "*", Component: Login },
 
 ]);
 
